@@ -9,7 +9,7 @@ namespace Aufgabe2
             string Bezeichnung = "Leere Bezeichnung";
             int    RegNummer   = 0;
             char   Kategorie   = 'z';
-            double Leuchtkraft = 0.0;
+            double Leuchtkraft = Double.NaN;
 
             // Den Benutzer nach Eingabe fragen
             Console.Write("Bezeichnung: ");
@@ -27,10 +27,7 @@ namespace Aufgabe2
             Console.Write("Leuchtkraft: ");
             Leuchtkraft = Convert.ToDouble(Console.ReadLine());
 
-            Console.Write("Bezeichnung      : {0}\n" +
-                          "Registriernummer : {1}\n" +
-                          "Kategorie        : {2}\n" +
-                          "Leuchtkraft      : {3}\n",
+            Console.Write("Bezeichnung      : {0}\nRegistriernummer : {1}\nKategorie        : {2}\nLeuchtkraft      : {3}\n",
                           Bezeichnung, RegNummer, Kategorie, Leuchtkraft);
         }
     }
