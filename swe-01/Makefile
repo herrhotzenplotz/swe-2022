@@ -1,4 +1,7 @@
-SUBDIR	=	Aufgabe2
+SUBDIR	=	Aufgabe2 \
+		Aufgabe3 \
+		Aufgabe4 \
+		Aufgabe4b
 
 .PHONY: all clean ${SUBDIR} ${SUBDIR:=-clean}
 all: ${SUBDIR}
