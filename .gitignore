@@ -2,3 +2,14 @@
 */bin/
 */obj/
 *.exe
+/swe-01/Aufgabe3/bin/
+/swe-01/Aufgabe3/obj/
+/swe-01/Aufgabe4/bin/
+/swe-01/Aufgabe4/obj/
+/swe-01/Aufgabe4b/bin/
+/swe-01/Aufgabe4b/obj/
+/swe-01/Aufgabe4c/bin/
+/swe-01/Aufgabe4c/obj/
+/swe-02/aufgabe1/bin/
+/swe-02/aufgabe1/obj/
+/swe-02/aufgabe2/obj/

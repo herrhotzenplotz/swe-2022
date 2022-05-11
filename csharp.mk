@@ -6,7 +6,7 @@ PROG	?=	${SRCS:.cs=.exe}
 all: ${PROG}
 
 ${PROG}: ${SRCS}
-	${MCS} -out:${PROG} ${SRCS}
+	${MCS} -langversion:7.1 -out:${PROG} ${SRCS}
 
 clean:
 	rm -f ${PROG}
