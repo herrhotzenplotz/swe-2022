@@ -1,0 +1,214 @@
+#+TITLE: Notizen zur vierten Übung
+#+AUTHOR: Nico Sonack
+#+DATE: 2022-May-16
+#+OPTIONS: date:nil
+
+Kleine Randnotiz: GitHub-Markdown kann LaTeX-Formeln nicht problemfrei
+rendern. Eine HTML-Variante habe ich [[https://www.herrhotzenplotz.de/swe/uebung4.html][hier]] hochgeladen. Dort kann man
+es besser lesen.
+
+* Schleifen
+
+  Schleifen wiederholen einen Codeblock entsprechend einer
+  Bedingung. Ist die Bedingung erfüllt, iteriert die Schleife weiter.
+
+  Es gibt 3 grundlegende Schleifenarten:
+
+** while-Schleife
+
+   Diese ist eine kopfgesteuerte Schleife. Zu Beginn wird die
+   Schleifenbedingung überprüft und wenn sie wahr (=true=) ist, wird
+   der Schleifenkörper ausgeführt.
+
+   #+label: while-loop
+   #+begin_src csharp :exports both
+     using System;
+
+     class Program
+     {
+	 static void Main()
+	 {
+	     int i = 0;
+	     while (i < 4)
+	     {
+		 Console.WriteLine("i = {0}", i);
+		 i = i + 1;
+	     }
+	 }
+     }
+   #+end_src
+
+   Dieses Programm gibt aus:
+
+   #+RESULTS: while-loop
+   | i | = | 0 |
+   | i | = | 1 |
+   | i | = | 2 |
+   | i | = | 3 |
+
+** for-Schleife
+
+   Diese Schleife ist besonders gut für Intervalle oder für Programme
+   geeignet, bei denen die Anzahl der Iterationen zuvor bekannt ist.
+
+   Im Schleifenkopf stehen drei durch Semikolon getrennte Anweisungen:
+
+   - Initialisierungsanweisung                             (Anfang)
+   - Iterationsbedingung                                   (Ende)
+   - Anweisung bei Sprung von unten nach oben der Schleife (Schrittweite)
+
+   Das Folgende Programm iteriert 4 mal und gibt dabei die Zahlen von
+   0 bis 3 aus.
+
+   #+name: for-loop
+   #+begin_src csharp :exports both
+     using System;
+
+     class Program
+     {
+	 static void Main()
+	 {
+	     for (int i = 0; i < 4; ++i) {
+		 Console.WriteLine("i = {0}", i);
+	     }
+	 }
+     }
+
+   #+end_src
+
+   Dieses Programm gibt aus:
+
+   #+RESULTS: for-loop
+   | i | = | 0 |
+   | i | = | 1 |
+   | i | = | 2 |
+   | i | = | 3 |
+
+** do-While-Schleife
+
+   Diese Schleife ist fußgesteuert, d.h. die Iterationsbedingung wird
+   immer zu Ende des Schleifenkörpers geprüft.
+
+   Deshalb findet bei der do-While-Schleife immer mindestens eine
+   Iteration statt.
+
+   #+name: do-while-loop
+   #+begin_src csharp :exports both
+     using System;
+
+     class Program
+     {
+	   static void Main()
+	   {
+	       int i = 0;
+
+	       do {
+		   Console.WriteLine("i = {0}", i);
+		   i += 1;
+	       } while (i < 4);
+	   }
+     }
+   #+end_src
+
+   Dieses Programm gibt aus:
+
+   #+RESULTS: do-while-loop
+   | i | = | 0 |
+   | i | = | 1 |
+   | i | = | 2 |
+   | i | = | 3 |
+
+
+* Fließkommazahlen
+
+  [[file:aufgabe3/Program.cs::if (Math.Abs(x + 2.0) < 5e-5 || Math.Abs(x - 1.0) < 5e-5)][Hier]] ist eine etwas merkwürdige Anweisung zu finden.
+
+  Wir möchten gern die Polstellen der Funktion bei $x = -2.0$ und $x =
+  +1.0$ abfangen.
+
+  Wenn man jedoch auf die Ausgabe der x-Werte schaut, so sieht man
+  Folgendes:
+
+  #+name: output-example
+  #+begin_example
+  -0.200000000000001	-2.54629629629629
+  -0.100000000000001	-2.74032187907786
+  -1.02695629777827E-15	-3
+  0.099999999999999	-3.35097001763668
+  0.199999999999999	-3.83522727272727
+  #+end_example
+
+  Die Werte sind nahezu niemals exakt genau. So ist im obigen Beispiel
+  für die Schrittweite $0.1$ angegeben worden. $0.1$ lässt sich
+  jedoch nicht exakt als Fließkommazahl repräsentieren und führt bei
+  Addition zu einer anderen Zahl zwangsläufig zu ungenauen
+  Ergebnissen. So ist im obigen Beispiel etwa $0.099999999999999 \approx 0.100000000$.
+
+  Aus diesem Grund berechnen wir uns zuerst die Abweichung von der
+  Polstelle und vergleichen diese mit einem ausreichend kleinen Wert
+  (meist Epsilon genannt).
+
+  - =Math.Abs= ist der Betrag (absolute value)
+  - =5e-5= ist $5.0 \cdot 10^{-5}$ (ausreichend kleiner Wert)
+
+  Ein sehr berühmtes Beispiel ist deswegen:
+
+  \(0.1 + 0.2 \neq 0.3\)
+
+  #+begin_src csharp :export both
+    using System;
+
+    class Program
+    {
+	static void Main()
+	{
+	    double x = 0.1;
+	    double y = 0.2;
+
+	    Console.WriteLine("x   = {0}", x);
+	    Console.WriteLine("y   = {0}", y);
+
+	    Console.WriteLine("0.3 = {0}", 0.3);
+	    Console.WriteLine("x+y = {0}", x+y);
+
+	    if (x+y == 0.3) {
+		Console.WriteLine("Hooray");
+	    } else {
+		Console.WriteLine("Bummer");
+	    }
+	}
+    }
+  #+end_src
+
+  #+RESULTS:
+  | x      | = | 0.1 |
+  | y      | = | 0.2 |
+  | 0.3    | = | 0.3 |
+  | x+y    | = | 0.3 |
+  | Bummer |   |     |
+
+  In reinem C sieht man genau, was hier geschieht:
+
+  #+begin_src C :include stdio.h
+    double x = 0.1;
+    double y = 0.2;
+
+    printf("x = %027.25f\n", x); // x mit 25 Nachkommastellen ausgeben
+    printf("y = %027.25f\n", y); // selbiges für y
+
+    printf("0.3 = %027.25f\n", 0.3);
+    printf("x+y = %027.25f\n", x+y);
+  #+end_src
+
+  Welches folgende Ausgabe produziert:
+
+  #+begin_example
+  x = 0.1000000000000000055511151
+  y = 0.2000000000000000111022302
+  0.3 = 0.2999999999999999888977698
+  x+y = 0.3000000000000000444089210
+  nico@triton:/tmp $
+  #+end_example
+
+  Deshalb: Ein direktes vergleichen von Fließkommazahlen mit dem
+  ==-Operator ist zumeist nicht sinnvoll.
