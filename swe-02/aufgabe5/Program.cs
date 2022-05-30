@@ -13,7 +13,8 @@ class Program {
 
 	/* 1000 Versuche */
 	for (int round = 0; round < 1000; ++round) {
-	    sum = 0;
+            /* Augensumme */
+	    int sum = 0;
 
 	    /* Einsatz */
 	    balance -= 1;
