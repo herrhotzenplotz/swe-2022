@@ -2,8 +2,17 @@
 #+SUBTITLE: Allgemeine Hinweise
 #+AUTHOR: Nico Sonack
 #+EMAIL: nsonack@herrhotzenplotz.de
-#+LANGUAGE: German
 #+OPTIONS: H:2
+#+LANGUAGE: german
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [a4paper,twoside]
+#+LATEX_HEADER: \usepackage{TUBAFhausschrift}
+#+LATEX_HEADER: \usepackage{TUBAFhausschriftmathe}
+#+LATEX_HEADER: \usepackage{paralist}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{geometry}
+#+LATEX_HEADER_EXTRA: \geometry{left=3cm,top=2cm,bottom=2cm,right=2cm}
+
 
 * SSH konfigurieren
 
@@ -80,10 +89,12 @@
 
    Auf Github oben rechts »Settings« auswählen:
 
+   #+attr_latex: :height 300px
    [[file:assets/github-settings.png]]
 
    Dann in der Linken Spalte zu »SSH and GPG keys« gehen und oben Rechts »New SSH Key auswählen«:
 
+   #+attr_html: :width 700px
    [[file:assets/github-add-key.png]]
 
    Beim Titel kann man einen Namen für den Schlüssel hinterlegen. Bei
