@@ -1,3 +1,5 @@
+# -*-indent-tabs-mode:nil -*-
+
 #+TITLE: How to Git
 #+SUBTITLE: Allgemeine Hinweise
 #+AUTHOR: Nico Sonack
@@ -12,7 +14,6 @@
 #+LATEX_HEADER: \usepackage{booktabs}
 #+LATEX_HEADER: \usepackage{geometry}
 #+LATEX_HEADER_EXTRA: \geometry{left=3cm,top=2cm,bottom=2cm,right=2cm}
-
 
 * SSH konfigurieren
 
@@ -34,13 +35,13 @@
 
    Das Kommando, um ein Schlüsselpaar zu erzeugen, ist:
 
-   #+begin_src sh
+   #+begin_src sh -i :float nil
    ssh-keygen -t ed25519 -C "bob@alice.com"
    #+end_src
 
    Beispielhaft gibt es folgendes aus:
 
-   #+begin_example
+   #+begin_src sh -i :float nil
    $ ssh-keygen -t ed25519 -C "bob@alice.com"
    Generating public/private ed25519 key pair.
    Enter file in which to save the key (/usr/home/nsonack/.ssh/id_ed25519):
@@ -63,7 +64,7 @@
    | ..  o.oo.       |
    +----[SHA256]-----+
    $
-   #+end_example
+   #+end_src
 
    Bei Fragen sollte man immer mit =ENTER= bestätigen. Ebenfalls ist es
    empfehlenswert, den Schlüssel mit einem Passwort zu sichern. Das
@@ -73,7 +74,7 @@
 
    In der obigen Ausgabe findet man folgende Zeile:
 
-   #+begin_example
+   #+begin_example -i :float nil
    Your public key has been saved in /usr/home/nsonack/.ssh/id_ed25519.pub.
    #+end_example
 
@@ -81,7 +82,7 @@
    Schlüssel. Diesen kopieren wir uns zunächst (markieren,
    Rechtsklick, kopieren):
 
-   #+begin_example
+   #+begin_example -i float nil
    $ cat /usr/home/nsonack/.ssh/id_ed25519.pub
    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqkl/THK4rRvvg5obbe8f0dyKW4BOLQ+N3c7XMd+nHw bob@alice.com
    $
@@ -101,7 +102,7 @@
    »Key« wird der eben generierte öffentliche Schlüssel eingegeben.
    Im Beispiel wäre das:
 
-   #+begin_example
+   #+begin_example -i :float nil
    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqkl/THK4rRvvg5obbe8f0dyKW4BOLQ+N3c7XMd+nHw bob@alice.com
    #+end_example
 
@@ -126,7 +127,7 @@
   Im Terminal kann man dann mit dem Befehl =git clone <URL>= das
   Repository klonen:
 
-  #+begin_src sh
+  #+begin_src sh -i :float nil
     $ git clone git@github.com:Ifi-Softwareentwicklung-SoSe2022/softwareentwicklung_aufgabe3_sose2022_mb-herrhotzenplotz.git
     Cloning into 'softwareentwicklung_aufgabe3_sose2022_mb-herrhotzenplotz'...
     remote: Enumerating objects: 8, done.
@@ -164,7 +165,7 @@
 
    =git status= gibt den aktuellen Status des Repositories aus:
 
-   #+begin_example
+   #+begin_example -i :float nil
    $ git status
    On branch main
    Your branch is up to date with 'origin/main'.
@@ -178,7 +179,7 @@
 
    Wenn ich nun noch einmal =git status= ausführe, sieht man Folgendes:
 
-   #+begin_example
+   #+begin_example -i :float nil
    $ git status
    On branch main
    Your branch is up to date with 'origin/main'.
@@ -186,7 +187,7 @@
    Changes not staged for commit:
      (use "git add <file>..." to update what will be committed)
      (use "git restore <file>..." to discard changes in working directory)
-	  modified:   team.config
+           modified:   team.config
 
    no changes added to commit (use "git add" and/or "git commit -a")
    $
@@ -196,7 +197,7 @@
 
    =git diff= zeigt die Änderungen an, die ich gemacht habe:
 
-   #+begin_src diff
+   #+begin_src diff -i :float nil
 $ git diff
 diff --git a/team.config b/team.config
 index ec25786..367c2c9 100644
@@ -220,7 +221,7 @@ $
    Wenn ich in meinem nächsten Commit alle Änderungen an der Datei
    =team.config= vormerken will, führe ich folgendes aus:
 
-   #+begin_src sh
+   #+begin_src sh -i :float nil
    $ git add team.config
    $ git status
    On branch main
@@ -228,7 +229,7 @@ $
 
    Changes to be committed:
      (use "git restore --staged <file>..." to unstage)
-	   modified:   team.config
+          modified:   team.config
 
    $
    #+end_src
@@ -240,7 +241,7 @@ $
    gemacht werden, kann man den Befehl =git diff= folgendermaßen
    benutzen:
 
-   #+begin_src sh
+   #+begin_src sh -i :float nil
    $ git diff --staged
    diff --git a/team.config b/team.config
    index ec25786..367c2c9 100644
@@ -270,7 +271,7 @@ $
 
     Die Commitnachricht ist lediglich »Update team.config«:
 
-    #+begin_src sh
+    #+begin_src sh -i :float nil
     $ git commit -m "Update team.config"
     [main fcfb663] Update team.config
      1 file changed, 1 insertion(+), 1 deletion(-)
@@ -302,7 +303,7 @@ $
    Wenn man direkt nach einem Commit =git status= ausführt, kann man
    folgendes sehen:
 
-   #+begin_example sh
+   #+begin_example sh -i :float nil
    $ git status
    On branch main
    Your branch is ahead of 'origin/main' by 1 commit.
@@ -317,7 +318,7 @@ $
 
    Nun kann ich den eigentlichen Push durchführen:
 
-   #+begin_example sh
+   #+begin_example sh -i :float nil
    $ git push
    Enumerating objects: 5, done.
    Counting objects: 100% (5/5), done.
@@ -338,7 +339,7 @@ $
    Auf einem anderen Computer kann man die Änderungen wieder
    herunterladen, indem man =git pull= ausführt.
 
-   #+begin_src sh
+   #+begin_src sh -i :float nil
      $ git pull
      Updating e0074bf..d2aa463
      Fast-forward
@@ -351,30 +352,30 @@ $
 
    =git log= zeigt einen Log aller Commits an:
 
-   #+begin_example
+   #+begin_example -i :float nil
      $ git log
      commit d2aa46306135fd653ff22c645d9d7043595c4065 (HEAD -> main, origin/main, origin/HEAD)
      Author: Nico Sonack <nsonack@herrhotzenplotz.de>
      Date:   Wed Jun 8 12:52:38 2022 +0200
 
-	 Update team.config
+         Update team.config
 
-	 This is a very long commit message.
-	 Whatever you say here is going to appear in the body.
-	 The first line is the title of the commit.
+         This is a very long commit message.
+         Whatever you say here is going to appear in the body.
+         The first line is the title of the commit.
 
      commit e0074bfcecf9acebc80a283d0e468fc4b5a5981d
      Author: Nico Sonack <nsonack@outlook.com>
      Date:   Wed Jun 8 10:43:59 2022 +0200
 
-	 Edit team.config
+         Edit team.config
 
-	 Set maintainer to myself
+         Set maintainer to myself
 
      commit 6c590227c76a832984db81417d95583889e9b1f2
      Author: github-classroom[bot] <66690702+github-classroom[bot]@users.noreply.github.com>
      Date:   Wed Jun 8 07:54:00 2022 +0000
 
-	 Initial commit
+         Initial commit
      $
    #+end_example
