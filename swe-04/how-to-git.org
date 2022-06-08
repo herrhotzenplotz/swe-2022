@@ -1,0 +1,381 @@
+# -*-indent-tabs-mode:nil -*-
+
+#+TITLE: How to Git
+#+SUBTITLE: Allgemeine Hinweise
+#+AUTHOR: Nico Sonack
+#+EMAIL: nsonack@herrhotzenplotz.de
+#+OPTIONS: H:2
+#+LANGUAGE: german
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [a4paper,twoside]
+#+LATEX_HEADER: \usepackage{TUBAFhausschrift}
+#+LATEX_HEADER: \usepackage{TUBAFhausschriftmathe}
+#+LATEX_HEADER: \usepackage{paralist}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{geometry}
+#+LATEX_HEADER_EXTRA: \geometry{left=3cm,top=2cm,bottom=2cm,right=2cm}
+
+* SSH konfigurieren
+
+  SSH (SecureShell) wird benötigt, um eine einfache Verbindung zu
+  GitHub aufzubauen, ohne ständig das Passwort eingeben zu müssen.
+
+** Schlüsselpaar generieren
+
+   *Wichtiger Hinweis*: Alles Nachfolgende funktioniert /NICHT/ in der
+   Windows PowerShell. Das betrifft ebenfalls das integrierte Terminal
+   in VisualStudio Code. Entweder ihr benutzt das »Cygwin Terminal«
+   oder die »Git Bash«.
+
+   Ein neues Schlüsselpaar lässt sich mittels [[https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key][dieser Anleitung]]
+   erzeugen.
+
+   Einen Schlüssel benötigt man auf jedem Rechner, auf dem man mit Git
+   arbeiten möchte.
+
+   Das Kommando, um ein Schlüsselpaar zu erzeugen, ist:
+
+   #+begin_src sh -i :float nil
+   ssh-keygen -t ed25519 -C "bob@alice.com"
+   #+end_src
+
+   Beispielhaft gibt es folgendes aus:
+
+   #+begin_src sh -i :float nil
+   $ ssh-keygen -t ed25519 -C "bob@alice.com"
+   Generating public/private ed25519 key pair.
+   Enter file in which to save the key (/usr/home/nsonack/.ssh/id_ed25519):
+   Enter passphrase (empty for no passphrase):
+   Enter same passphrase again:
+   Your identification has been saved in /usr/home/nsonack/.ssh/id_ed25519.
+   Your public key has been saved in /usr/home/nsonack/.ssh/id_ed25519.pub.
+   The key fingerprint is:
+   SHA256:u8NOYj5FqC/XFAYbk7XE4AbKlEx5wW7QBBioKu/BWBg bob@alice.com
+   The key's randomart image is:
+   +--[ED25519 256]--+
+   |o=+B+..=o        |
+   |oo=.+o=...       |
+   |E o+  o*.        |
+   |.o  o.o +        |
+   |o .. . oS.       |
+   |o+  .   o.       |
+   |o.o  .o=o        |
+   |  ...o+o+.       |
+   | ..  o.oo.       |
+   +----[SHA256]-----+
+   $
+   #+end_src
+
+   Bei Fragen sollte man immer mit =ENTER= bestätigen. Ebenfalls ist es
+   empfehlenswert, den Schlüssel mit einem Passwort zu sichern. Das
+   Passwort wird beim Tippen nicht angezeigt.
+
+** Öffentlichen Schlüssel bei GitHub hinterlegen
+
+   In der obigen Ausgabe findet man folgende Zeile:
+
+   #+begin_example -i :float nil
+   Your public key has been saved in /usr/home/nsonack/.ssh/id_ed25519.pub.
+   #+end_example
+
+   Der Inhalt der angegebenen Datei ist der öffentliche
+   Schlüssel. Diesen kopieren wir uns zunächst (markieren,
+   Rechtsklick, kopieren):
+
+   #+begin_example -i float nil
+   $ cat /usr/home/nsonack/.ssh/id_ed25519.pub
+   ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqkl/THK4rRvvg5obbe8f0dyKW4BOLQ+N3c7XMd+nHw bob@alice.com
+   $
+   #+end_example
+
+   Auf Github oben rechts »Settings« auswählen:
+
+   #+attr_latex: :height 300px
+   [[file:assets/github-settings.png]]
+
+   Dann in der Linken Spalte zu »SSH and GPG keys« gehen und oben Rechts »New SSH Key auswählen«:
+
+   #+attr_html: :width 700px
+   [[file:assets/github-add-key.png]]
+
+   Beim Titel kann man einen Namen für den Schlüssel hinterlegen. Bei
+   »Key« wird der eben generierte öffentliche Schlüssel eingegeben.
+   Im Beispiel wäre das:
+
+   #+begin_example -i :float nil
+   ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqkl/THK4rRvvg5obbe8f0dyKW4BOLQ+N3c7XMd+nHw bob@alice.com
+   #+end_example
+
+   Dann »Add SSH Key« anklicken und der Schlüssel ist hinterlegt.
+
+
+* Klonen von Repositories
+
+  Ein Repository ist ein Ordner mit Dateien und Code, der von Git
+  verwaltet wird.
+
+  Wenn man Änderungen vornehmen will, klont man zunächst das
+  Repository auf den eigenen Rechner mit =git clone=:
+
+  Den Link für das Repository findet man auf GitHub selbst:
+
+  [[file:assets/github-clone.png]]
+
+  Erst auf den grünen »Code«-Button drücken und dann »SSH«
+  auswählen. Den angegebenen Link dann kopieren.
+
+  Im Terminal kann man dann mit dem Befehl =git clone <URL>= das
+  Repository klonen:
+
+  #+begin_src sh -i :float nil
+    $ git clone git@github.com:Ifi-Softwareentwicklung-SoSe2022/softwareentwicklung_aufgabe3_sose2022_mb-herrhotzenplotz.git
+    Cloning into 'softwareentwicklung_aufgabe3_sose2022_mb-herrhotzenplotz'...
+    remote: Enumerating objects: 8, done.
+    remote: Counting objects: 100% (8/8), done.
+    remote: Compressing objects: 100% (6/6), done.
+    Receiving objects: 100% (8/8), 4.59 KiB | 4.59 MiB/s, done.
+    Resolving deltas: 100% (2/2), done.
+    remote: Total 8 (delta 2), reused 6 (delta 2), pack-reused 0
+    $
+    $ ls -l
+    total 2110
+    drwxr-xr-x   3 nico  nico        6 Jun  8 12:22 softwareentwicklung_aufgabe3_sose2022_mb-herrhotzenplotz
+    $
+    $ cd softwareentwicklung_aufgabe3_sose2022_mb\-herrhotzenplotz/
+    $
+    $ ls -l
+    total 14
+    -rw-r--r--  1 nico  nico  2339 Jun  8 12:22 CSharpBasics.txt
+    -rw-r--r--  1 nico  nico  4715 Jun  8 12:22 README.md
+    -rw-r--r--  1 nico  nico   220 Jun  8 12:22 team.config
+    $
+  #+end_src
+
+   Nun sieht man ein neues Verzeichnis mit dem Code. Wenn man in
+   dieses wechselt mit =cd=, sind dort die selben Dateien, wie auf
+   Github.
+
+* Die wichtigsten Git Kommandos
+
+  Randnotiz: Nachfolgend sind die Kommandos aufgelistet, wie sie im
+  normalen »git Workflow« benutzt werden. Man kann also einmal von
+  oben nach unten durcharbeiten.
+
+** git status
+
+   =git status= gibt den aktuellen Status des Repositories aus:
+
+   #+begin_example -i :float nil
+   $ git status
+   On branch main
+   Your branch is up to date with 'origin/main'.
+
+   nothing to commit, working tree clean
+   $
+   #+end_example
+
+   Nun kann man seine Änderungen vornehmen. Als Beispiel bearbeite ich
+   hier einmal die team.config.
+
+   Wenn ich nun noch einmal =git status= ausführe, sieht man Folgendes:
+
+   #+begin_example -i :float nil
+   $ git status
+   On branch main
+   Your branch is up to date with 'origin/main'.
+
+   Changes not staged for commit:
+     (use "git add <file>..." to update what will be committed)
+     (use "git restore <file>..." to discard changes in working directory)
+           modified:   team.config
+
+   no changes added to commit (use "git add" and/or "git commit -a")
+   $
+   #+end_example
+
+** git diff
+
+   =git diff= zeigt die Änderungen an, die ich gemacht habe:
+
+   #+begin_src diff -i :float nil
+$ git diff
+diff --git a/team.config b/team.config
+index ec25786..367c2c9 100644
+--- a/team.config
++++ b/team.config
+@@ -2,5 +2,5 @@
+ # persönlichen Fragebogenschlüssel
+ #
+ # PERA06N - Maintainer
+-# RTFR30V - Developer
++# FUBA42R - Developer
+ # -----------------------------------------------------------------
+$
+   #+end_src
+
+** git add
+
+   Mittels =git add= werden Änderungen an Dateien für den nächsten
+   Commit vorgemerkt:
+
+   Wenn ich in meinem nächsten Commit alle Änderungen an der Datei
+   =team.config= vormerken will, führe ich folgendes aus:
+
+   #+begin_src sh -i :float nil
+   $ git add team.config
+   $ git status
+   On branch main
+   Your branch is up to date with 'origin/main'.
+
+   Changes to be committed:
+     (use "git restore --staged <file>..." to unstage)
+          modified:   team.config
+
+   $
+   #+end_src
+
+   Nun listet Git die Änderung an =team.config= unter »Changes to be
+   committed« auf.
+
+   Wenn man alle Änderungen ansehen will, die mit dem nächsten Commit
+   gemacht werden, kann man den Befehl =git diff= folgendermaßen
+   benutzen:
+
+   #+begin_src sh -i :float nil
+   $ git diff --staged
+   diff --git a/team.config b/team.config
+   index ec25786..367c2c9 100644
+   --- a/team.config
+   +++ b/team.config
+   @@ -2,5 +2,5 @@
+    # persönlichen Fragebogenschlüssel
+    #
+    # PERA06N - Maintainer
+   -# RTFR30V - Developer
+   +# FUBA42R - Developer
+    # -----------------------------------------------------------------
+   $
+   #+end_src
+
+   Die Option =--staged= gibt also einen Diff für alle »gestagete«
+   Änderungen aus.
+
+** git commit
+
+   Es gibt zwei Möglichkeiten:
+
+   - kurze Commitnachricht
+   - lange Commitnachricht
+
+*** Kurze Commitnachricht
+
+    Die Commitnachricht ist lediglich »Update team.config«:
+
+    #+begin_src sh -i :float nil
+    $ git commit -m "Update team.config"
+    [main fcfb663] Update team.config
+     1 file changed, 1 insertion(+), 1 deletion(-)
+    $
+    #+end_src
+
+*** Lange Commitnachricht
+
+    Der Befehl für eine lange Commitnachricht ist =git commit=. Wenn
+    man diesen Befehl ausführt, öffnet sich zuerst ein Editor.
+
+    Folgendermaßen geht man dann vor:
+
+    - =i= drücken
+    - Nachricht eingeben
+    - =ESC= drücken
+    - =:x= eingeben
+    - =Enter= drücken
+
+    Hier ein kleiner Screenshot, wie es aussieht, bevor man =Enter= drückt:
+
+    [[file:assets/git-commit-long.png]]
+
+** git push
+
+   Mit =git push= kann man Änderungen an einen fremden Computer
+   senden. In unserem Fall ist das zumeist der Server von Github.
+
+   Wenn man direkt nach einem Commit =git status= ausführt, kann man
+   folgendes sehen:
+
+   #+begin_example sh -i :float nil
+   $ git status
+   On branch main
+   Your branch is ahead of 'origin/main' by 1 commit.
+     (use "git push" to publish your local commits)
+
+   nothing to commit, working tree clean
+   $
+   #+end_example
+
+   Git meldet, dass ich lokal einen Commit habe, den ich noch nicht an
+   GitHub gesandt habe. Github ist hier mit =origin= gemeint.
+
+   Nun kann ich den eigentlichen Push durchführen:
+
+   #+begin_example sh -i :float nil
+   $ git push
+   Enumerating objects: 5, done.
+   Counting objects: 100% (5/5), done.
+   Delta compression using up to 12 threads
+   Compressing objects: 100% (3/3), done.
+   Writing objects: 100% (3/3), 383 bytes | 383.00 KiB/s, done.
+   Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+   remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+   To github.com:Ifi-Softwareentwicklung-SoSe2022/softwareentwicklung_aufgabe3_sose2022_mb-herrhotzenplotz.git
+      e0074bf..d2aa463  main -> main
+   $
+   #+end_example
+
+   Jetzt sind meine Änderungen veröffentlicht.
+
+** git pull
+
+   Auf einem anderen Computer kann man die Änderungen wieder
+   herunterladen, indem man =git pull= ausführt.
+
+   #+begin_src sh -i :float nil
+     $ git pull
+     Updating e0074bf..d2aa463
+     Fast-forward
+      team.config | 2 +-
+      1 file changed, 1 insertion(+), 1 deletion(-)
+     $
+   #+end_src
+
+** git log
+
+   =git log= zeigt einen Log aller Commits an:
+
+   #+begin_example -i :float nil
+     $ git log
+     commit d2aa46306135fd653ff22c645d9d7043595c4065 (HEAD -> main, origin/main, origin/HEAD)
+     Author: Nico Sonack <nsonack@herrhotzenplotz.de>
+     Date:   Wed Jun 8 12:52:38 2022 +0200
+
+         Update team.config
+
+         This is a very long commit message.
+         Whatever you say here is going to appear in the body.
+         The first line is the title of the commit.
+
+     commit e0074bfcecf9acebc80a283d0e468fc4b5a5981d
+     Author: Nico Sonack <nsonack@outlook.com>
+     Date:   Wed Jun 8 10:43:59 2022 +0200
+
+         Edit team.config
+
+         Set maintainer to myself
+
+     commit 6c590227c76a832984db81417d95583889e9b1f2
+     Author: github-classroom[bot] <66690702+github-classroom[bot]@users.noreply.github.com>
+     Date:   Wed Jun 8 07:54:00 2022 +0000
+
+         Initial commit
+     $
+   #+end_example
