@@ -1,0 +1,97 @@
+#+TITLE: How to Git
+#+SUBTITLE: Allgemeine Hinweise
+#+AUTHOR: Nico Sonack
+#+EMAIL: nsonack@herrhotzenplotz.de
+#+LANGUAGE: German
+
+* SSH konfigurieren
+
+  SSH (SecureShell) wird benötigt, um eine einfache Verbindung zu
+  GitHub aufzubauen, ohne ständig das Passwort eingeben zu müssen.
+
+** Schlüsselpaar generieren
+
+   *Wichtiger Hinweis*: Alles Nachfolgende funktioniert /NICHT/ in der
+   Windows PowerShell. Das betrifft ebenfalls das integrierte Terminal
+   in VisualStudio Code. Entweder ihr benutzt das »Cygwin Terminal«
+   oder die »Git Bash«.
+
+   Ein neues Schlüsselpaar lässt sich mittels [dieser
+   Anleitung](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key)
+   erzeugen.
+
+   Einen Schlüssel benötigt man auf jedem Rechner, auf dem man mit Git
+   arbeiten möchte.
+
+   Das Kommando, um ein Schlüsselpaar zu erzeugen, ist:
+
+   #+begin_src sh
+   ssh-keygen -t ed25519 -C "bob@alice.com"
+   #+end_src
+
+   Beispielhaft gibt es folgendes aus:
+
+   #+begin_example
+   nsonack@io:~/src $ ssh-keygen -t ed25519 -C "bob@alice.com"
+   Generating public/private ed25519 key pair.
+   Enter file in which to save the key (/usr/home/nsonack/.ssh/id_ed25519):
+   Enter passphrase (empty for no passphrase):
+   Enter same passphrase again:
+   Your identification has been saved in /usr/home/nsonack/.ssh/id_ed25519.
+   Your public key has been saved in /usr/home/nsonack/.ssh/id_ed25519.pub.
+   The key fingerprint is:
+   SHA256:u8NOYj5FqC/XFAYbk7XE4AbKlEx5wW7QBBioKu/BWBg bob@alice.com
+   The key's randomart image is:
+   +--[ED25519 256]--+
+   |o=+B+..=o        |
+   |oo=.+o=...       |
+   |E o+  o*.        |
+   |.o  o.o +        |
+   |o .. . oS.       |
+   |o+  .   o.       |
+   |o.o  .o=o        |
+   |  ...o+o+.       |
+   | ..  o.oo.       |
+   +----[SHA256]-----+
+   nsonack@io:~/src $
+   #+end_example
+
+   Bei Fragen sollte man immer mit =ENTER= bestätigen. Ebenfalls ist es
+   empfehlenswert, den Schlüssel mit einem Passwort zu sichern. Das
+   Passwort wird beim Tippen nicht angezeigt.
+
+** Öffentlichen Schlüssel bei GitHub hinterlegen
+
+   In der obigen Ausgabe findet man folgende Zeile:
+
+   #+begin_example
+   Your public key has been saved in /usr/home/nsonack/.ssh/id_ed25519.pub.
+   #+end_example
+
+   Der Inhalt der angegebenen Datei ist der öffentliche
+   Schlüssel. Diesen kopieren wir uns zunächst (markieren,
+   Rechtsklick, kopieren):
+
+   #+begin_example
+   nsonack@io:~/src $ cat /usr/home/nsonack/.ssh/id_ed25519.pub
+   ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqkl/THK4rRvvg5obbe8f0dyKW4BOLQ+N3c7XMd+nHw bob@alice.com
+   nsonack@io:~/src $
+   #+end_example
+
+   Auf Github oben rechts »Settings« auswählen:
+
+   [[file:assets/github-settings.png]]
+
+   Dann in der Linken Spalte zu »SSH and GPG keys« gehen und oben Rechts »New SSH Key auswählen«:
+
+   [[file:assets/github-add-key.png]]
+
+   Beim Titel kann man einen Namen für den Schlüssel hinterlegen. Bei
+   »Key« wird der eben generierte öffentliche Schlüssel eingegeben.
+   Im Beispiel wäre das:
+
+   #+begin_example
+   ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqkl/THK4rRvvg5obbe8f0dyKW4BOLQ+N3c7XMd+nHw bob@alice.com
+   #+end_example
+
+   Dann »Add SSH Key« anklicken und der Schlüssel ist hinterlegt.
