@@ -379,3 +379,103 @@ $
          Initial commit
      $
    #+end_example
+
+** git branch
+
+*** Branches auflisten
+   Der Befehl =git branch= listet bekannte Branches:
+
+   #+begin_example -i :float nil
+   $ git branch
+   * 13062022
+     trunk
+   $
+   #+end_example
+
+   Der Stern zeigt, auf welcher Branch man sich gerade befindet.
+
+*** Neue Branch erzeugen
+   Um eine neue Branch zu erzeugen:
+
+   #+begin_example -i :float nil
+   $ git branch "<new-branch-name>"
+   $ git checkout "<new-branch-name>"
+   Switched to branch ...
+   $
+   #+end_example
+
+   Für dieses Prozedere gibt es übrigens auch eine Kurzform:
+
+   #+begin_example -i :float nil
+   $ git checkout -b "new-branch-name"
+   #+end_example
+
+   Dies erzeugt die neue Branch und führt dann automatisch den
+   Checkout aus.
+
+*** Branches löschen
+
+   Zuerst sollte man sicherstellen, dass man sich nicht auf der zu
+   löschenden Branch befindet.
+
+   Dann kann man sie löschen:
+
+   #+begin_example -i :float nil
+   $ git branch -d "branch-name"
+   #+end_example
+
+** git fetch
+
+   =git fetch= durchsucht ein Remote auf Änderungen, wendet sie aber
+   lokal nicht an.
+
+   So kann man ohne einen =git pull= z.B. auf eine Branch wechseln,
+   die jemand anderes gepusht hat:
+
+   #+begin_example -i :float nil
+   $
+   $ git fetch
+   remote: Enumerating objects: 13, done.
+   remote: Counting objects: 100% (13/13), done.
+   remote: Compressing objects: 100% (5/5), done.
+   Unpacking objects: 100% (13/13), 3.98 KiB | 510.00 KiB/s, done.
+   remote: Total 13 (delta 8), reused 13 (delta 8), pack-reused 0
+   From github.com:test/foobar
+    * [new branch]        bing -> origin/bing
+   $
+   $ git checkout bing
+   branch 'bing' set up to track 'origin/bing'.
+   Switched to a new branch 'bing'
+   $
+   #+end_example
+
+   Ebenfalls wird dies nötig, wenn eine andere Person Änderungen in
+   einen Branch gepusht hat, diese aber lokal noch nicht angewandt
+   wurden. Dies wird offensichtlich, wenn GitHub beim =git push= sich
+   meldet und ein Fehler a'la =changes rejected= ausgibt.
+
+   In diesem Fall führt man z.B. folgende Schritte aus:
+
+   #+begin_example -i :float nil
+   $ git fetch origin <branch>
+   $ git merge origin/<branch>
+   $ git push origin
+   #+end_example
+
+   Alternativ kann man auch Folgendes tun:
+
+   #+begin_example -i :float nil
+   $ git fetch origin <branch>
+   $ git rebase origin/<branch>
+   #+end_example
+
+   Letzteres führt jedoch dazu, dass man einen sogenannten Force-Push
+   durchführen muss, da bereits angewandte Commits umgeschrieben
+   werden müssen:
+
+   #+begin_example -i :float nil
+   $ git push --force
+   #+end_example
+
+   *Bitte mit VORSICHT genießen!* In aller Regel ist dies auf der
+    =master= / =main= / =trunk=-Branch nicht nötig, gewollt oder möglich.
