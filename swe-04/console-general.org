@@ -1,0 +1,359 @@
+# -*-indent-tabs-mode:nil -*-
+
+#+TITLE: Console Cheat Sheet
+#+SUBTITLE: Allgemeines zum Bedienen des Computers über das Terminal
+#+AUTHOR: Nico Sonack
+#+EMAIL: nsonack@herrhotzenplotz.de
+#+OPTIONS: H:2
+#+LANGUAGE: german
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [a4paper,twoside]
+#+LATEX_HEADER: \usepackage{TUBAFhausschrift}
+#+LATEX_HEADER: \usepackage{TUBAFhausschriftmathe}
+#+LATEX_HEADER: \usepackage{paralist}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{geometry}
+#+LATEX_HEADER_EXTRA: \geometry{left=3cm,top=2cm,bottom=2cm,right=2cm}
+
+* Terminal?
+
+  Das Terminal ist das Programm, mit dem ich textbasiert mit dem
+  Computer interagieren kann.
+
+  Unter Windows gibt es mehrere Terminals:
+
+  - cmd.exe
+  - PowerShell
+  - Git Bash
+  - Cygwin
+
+  Die letzteren beiden müssen, wenn sie noch nicht installiert sind,
+  nachinstalliert werden. Ich empfehle entweder das Cygwin Terminal
+  oder die Git Bash.
+
+  Alle folgenden Informationen betreffen auch nur diese Beiden. Die
+  Befehle werden *nicht* in =cmd.exe= und =PowerShell= funktionieren,
+  da dies Windows-spezifische Kommandointerpreter sind. Generell ist
+  von deren Benutzung auch abzuraten.
+
+  Gut zu wissen ist, dass =Strg+C= und =Strg+V= im Terminal nicht
+  funktieren. Entweder man benutzt den Rechtsklick, oder man kann
+  einen Text im Terminal kopieren und einfügen, in dem man ihn
+  markiert und dann das Mausrad (den mittleren Mausknopf) drückt.
+
+  Sollte sich ein Programm aufhängen oder man will ein Kommando
+  abbrechen, so kann man dies mit =Strg-C= im Terminal machen.
+
+** Im Terminal navigieren
+
+   Wenn das Terminal startet, zeigt der Kommandozeileninterpreter
+   einen sogenannten Prompt an. Dieser ist als Zeichen dafür zu
+   werten, dass gerade alle Befehle ausgeführt wurden und auf die
+   Eingabe von neuen Befehlen gewartet wird.
+
+   Oftmals sieht das ungefähr so aus:
+
+   #+begin_example
+   username@computer:~ $
+   #+end_example
+
+   Nach dem Dollarzeichen folgt die Eingabe von Befehlen.
+
+*** Dateisystem
+
+	Der Computer organisiert Dateien in Ordnern. In Ordnern können
+	weitere Ordner sein, sodass ein hierarchisches Dateisystem
+	entsteht.
+
+	Hier einmal das Beispiel, wie Dateien in meinen Lösungen
+	organisiert sind:
+
+	#+begin_example
+	.
+	├── csharp.mk
+	├── LICENSE
+	├── Makefile
+	├── README.md
+	├── swe-01
+	│   ├── Aufgabe2
+	│   │   ├── Aufgabe2.csproj
+	│   │   ├── Makefile
+	│   │   └── Program.cs
+	│   ├── Aufgabe3
+	│   │   ├── Aufgabe3.csproj
+	│   │   ├── Makefile
+	│   │   └── Program.cs
+	│   ├── Aufgabe4
+	│   │   ├── Aufgabe4.csproj
+	│   │   ├── Makefile
+	│   │   └── Program.cs
+	│   ├── Aufgabe4b
+	│   │   ├── Aufgabe4b.csproj
+	│   │   ├── Makefile
+	│   │   └── Program.cs
+	│   ├── Aufgabe4c
+	│   │   ├── Aufgabe4c.csproj
+	│   │   ├── Makefile
+	│   │   └── Program.cs
+	│   └── Makefile
+	├── swe-02
+	│   ├── aufgabe1
+	│   │   ├── aufgabe1.csproj
+	│   │   ├── Makefile
+	│   │   └── Program.cs
+	│   ├── aufgabe2
+	│   │   ├── aufgabe2.csproj
+	│   │   ├── Makefile
+	│   │   └── Program.cs
+	...
+	#+end_example
+
+	Es gibt also den Ordner, von dem ich gerade auf das Dateisystem
+	sehe (gekennzeichnet mit dem =.=).
+
+	Dort gibt es einige Dateien (=csharp.mk=, =LICENSE= etc) und
+	Ordner (=swe-01=, =swe-02=). In den Ordnern sind weitere Ordner.
+
+	Es gibt weitere Kürzel für besondere Ordner:
+
+	| Kürzel | Bedeutung                                                                                                                                                                       |
+	|--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+	| =.=    | Ordner, in dem ich mich gerade befinde                                                                                                                                          |
+	| =..=   | Ordner eine Ebene höher (also der Ordner in der Ordner ist, in dem ich gerade bin; Beispiel: wenn ich in =swe-01/Aufgabe4/= bin, dann ist =swe-01/Aufgabe4/..= gleich =swe-01/= |
+	| =~=    | Home directory (Eigene Dateien)                                                                                                                                                 |
+
+* Grundlegende Kommandos
+
+   Hier eine kurze Zusammenfassung - Details sind unter der Tabelle.
+
+   #+ATTR_LATEX: :mode table :booktabs
+   | Kommando         | Bedeutung               | Beschreibung                                                          |
+   |------------------+-------------------------+-----------------------------------------------------------------------|
+   | =pwd=            | print working directory | Gibt den aktuellen Ordner aus, von dem ich auf das Dateisystem schaue |
+   | =ls=             | list files              | Listet Dateien im jetzigen Ordner auf                                 |
+   | =cd <dir>=       | change directory        | Wechselt das Verzeichnis in den angegebenen Ordner =<dir>=            |
+   | =touch <file>=   | touch a file            | Erstellt eine neue Datei =<file>= im jetzigen Ordner                  |
+   | =rm <file>=      | remove file             | Löscht die angegebene Datei (oder Ordner mit Dateien. Siehe unten.)   |
+   | =cp <src> <dst>= | copy file               | Kopiert die Datei =<src>= nach =<dst>=                                |
+   | =mv <src> <dst>= | move file               | Verschiebt/benennt eine Datei um (von =<src>= nach =<dst>=)           |
+   | =mkdir <foo>=    | make directory          | Erstellt einen neuen Ordner =<foo>=                                   |
+   | =rmdir <foo>=    | remove directory        | Löscht den (leeren) Ordner =<foo>=                                    |
+   #+TBLFM:
+
+** Aufbau von Kommandos
+
+   Wenn man ein Kommando eingibt, kommt zuallerest immer der
+   Kommandoname. Das Betriebssystem sucht nach einem Programm
+   (=.exe=-Datei unter Windows) mit genau diesem Namen und übergibt
+   diesem dann alle weiteren Optionen, die ich danach aufliste.
+
+   Optionen können zum Beispiel Dateien, Ordner oder Schalter sein,
+   die das Verhalten meines Programms beeinflussen.
+
+**** Beispiel
+
+	 #+begin_example
+	 $ ls -la swe-01
+	 total 32
+	 drwxr-xr-x  7 nico  nico    8 May 16 11:22 .
+	 drwxr-xr-x  7 nico  nico   12 Jun 13 17:11 ..
+	 drwxr-xr-x  2 nico  nico    6 Jun 22 11:52 Aufgabe2
+	 drwxr-xr-x  2 nico  nico    5 Jun 22 11:52 Aufgabe3
+	 drwxr-xr-x  2 nico  nico    5 Jun 22 11:52 Aufgabe4
+	 drwxr-xr-x  2 nico  nico    5 Jun 22 11:52 Aufgabe4b
+	 drwxr-xr-x  2 nico  nico    5 Jun 22 11:52 Aufgabe4c
+	 -rw-r--r--  1 nico  nico  244 May 16 11:22 Makefile
+	 $
+	 #+end_example
+
+	 Hier ist das Kommando =ls=. Ich übergebe dem Programm =ls= zwei Schalter:
+
+	 - =-l= - detaillierte Liste mit Informationen über die Dateien und Ordner
+	 - =-a= - liste alle Dateien auf, auch versteckte und Ordner.
+
+	 Weiterhin übergebe ich =ls= einen Ordner =swe-01=, in dem es
+	 Dateien auflisten soll.
+
+	 =-l= und =-a= sind kurze Schalter und können zu =-la=
+	 zusammengefasst werden. Es gibt auch Langformen für Schalter:
+
+	 =--this-is-a-long-switch=
+
+	 Schalter können manchmal auch Argumente annehmen:
+
+	 =--verbosity all= oder =--verbosity=all=
+
+	 Meistens liefern Kommandos auch integrierte Hilfe mit:
+
+	 #+begin_example
+	 $ ls --help
+	 ls: unrecognized option `--help'
+	 usage: ls [-ABCFGHILPRSTUWZabcdfghiklmnopqrstuwxy1,] [--color=when] [-D format] [file ...]
+	 $
+	 #+end_example
+
+	 Wer noch mehr Hilfe benötigt, kann sich die Manualseiten für die
+	 Kommandos anschauen. Unter macOS, Linux und BSD sind diese im
+	 System mittels des =man= Kommando integriert: =man <command>=
+
+	 Unter Windows empfehle ich [[https://www.freebsd.org/cgi/man.cgi][die Online-Manpages von FreeBSD]]. Dort
+	 kann man das gewünschte Kommando eingeben und sich die
+	 Manualseite im Webbrowser ansehen. Unter =EXAMPLES= sind dort
+	 dann sehr oft auch Beispiele zur Benutzung aufgelistet.
+
+** pwd
+
+   =pwd= aka =print working directory= gibt lediglich den Ordner aus,
+   in dem ich mich gerade befinde und von dem ich auf das Dateisystem
+   schaue.
+
+** ls
+
+   =ls= aka. =list directory contents= Listet Dateien und Ordner im
+   jetzigen oder angegebenen Ordner auf.
+
+   Folgende Optionen sind gut zu wissen:
+
+   | Option | Bedeutung                                        |
+   |--------+--------------------------------------------------|
+   | =-l=   | Lange Liste mit Details zu allen Ordnereinträgen |
+   | =-a=   | Listet alle Dateien, also auch versteckte, auf   |
+
+   Wird kein Ordner an =ls= übergeben, so werden Dateien im jetzigen
+   Ordner aufgelistet. Wird =ls= ein Ordner übergeben, so werden die
+   Dateien und Ordner in diesem aufgelistet.
+
+*** Beispiel
+
+	Liste alle Dateien im jetzigen und danach im Ordner swe-01 auf:
+
+	#+begin_example
+	$ ls -a
+	.          .git       csharp.mk  Makefile   swe-01     swe-03
+	..         .gitignore LICENSE    README.md  swe-02     swe-04
+	$
+	$
+	$ ls -a swe-01
+	.         ..        Aufgabe2  Aufgabe3  Aufgabe4  Aufgabe4b Aufgabe4c Makefile
+	$
+	#+end_example
+
+** cd
+
+   Mit =cd= kann man im Dateisystem herumnavigieren.
+
+   Wenn man in den Ordner =foo= wechseln möchte, um dort zu arbeiten,
+   so führt man das Kommando =cd foo= aus. Wenn der Ordnername lang
+   ist, entweder mit der Maus copy-pasten oder anfangen den Namen zu
+   tippen und dann mit der /Tabulatortaste/ vervollständigen.
+
+   Um in der Verzeichnishierachie eine Ebene nach oben zu wechseln,
+   benutzt man den Befehl =cd ..=, da =..= für den Ordner eine Ebene
+   höher steht.
+
+   =cd= ohne Optionen und angegeben Ordner wechselt in das
+   Home-Verzeichnis (Eigene Dateien).
+
+   #+begin_example
+   $
+   $ pwd
+   /usr/home/nico/src/swe-2022
+   $ cd swe-01
+   $ pwd
+   /usr/home/nico/src/swe-2022/swe-01
+   $ cd ..
+   $ pwd
+   /usr/home/nico/src/swe-2022
+   $
+   #+end_example
+
+** touch
+
+   Touch erstellt eine neue Datei oder verändert die Zugriffszeit der
+   Datei.
+
+*** Beispiel
+
+	#+begin_example
+	$ ls -lap foo
+	ls: foo: No such file or directory
+	$ touch foo
+	$ ls -lap foo
+	-rw-r--r--  1 nico  wheel  0 Jun 22 14:21 foo
+	$
+	#+end_example
+
+** rm
+
+   =rm= löscht Dateien und Ordner.
+
+*** Beispiel für Dateien:
+
+	#+begin_example
+	$ ls -l foo
+	-rw-r--r--  1 nico  wheel  0 Jun 22 14:21 foo
+	$
+	$ rm foo
+	$ ls -l foo
+	ls: foo: No such file or directory
+	$
+	#+end_example
+
+*** Für Ordner mit Dateien
+
+	Um einen Ordner mitsamt seinem Inhalt zu löschen, kann man
+	folgendes Kommando *mit VORSICHT* verwenden:
+
+	=rm -rf <ordner>=
+
+	- =-r= steht für rekursives Löschen
+	- =-f= steht für Löschen ohne Nachfrage, also auch
+	  schreibgeschützte Dateien.
+
+** cp
+
+   =cp= kopiert Dateien.
+
+*** Varianten
+**** Einzelne Dateien
+
+	=cp <Quelldatei> <Zieldatei>=
+
+**** Mehrere Dateien in einen Ordner
+
+	=cp <Quelldateien...> <Zielordner>=
+
+**** Einen ganzen Ordner kopieren
+
+	=cp -r <Quellordner> <Zielordner>=
+
+*** Optionen
+
+	| Option | Beschreibung                                                               |
+	|--------+----------------------------------------------------------------------------|
+	| =-r=   | Rekursive Kopie eines Ordners mitsamt aller Unterverzeichnisse und Dateien |
+	| =-p=   | Übernimmt Dateimetadaten, wie Dateibesitzer und Zugriffsrechte.            |
+	| =-v=   | (Verbose) Listet Dateien und Ordner auf, wie sie kopiert werden.           |
+
+** mv
+
+   =mv= verschiebt Dateien oder Ordner:
+
+   #+begin_example
+   $
+   $ ls -l
+   total 1
+   -rw-r--r--  1 nico  wheel  0 Jun 22 15:28 bar
+   $ mv bar baz
+   $ ls -l
+   total 1
+   -rw-r--r--  1 nico  wheel  0 Jun 22 15:28 baz
+   $
+   #+end_example
+
+   So kann man auch Dateien umbenennen.
+
+** rmdir
+
+   =rmdir= löscht leere Ordner. Ordner, die Daten enthalten führen zu
+   Fehlern. Anstattdessen lieber =rm= verwenden.
