@@ -1,0 +1,235 @@
+# -*-indent-tabs-mode:nil -*-
+#
+# github.org
+#
+# Written By:  Nico Sonack
+# Written for: Einführung in die Softwareentwicklung 2022
+# Date: 27-Jun-2022
+#
+#+TITLE: Github Workflow
+#+SUBTITLE: Möglicher Workflow auf/mit GitHub
+#+AUTHOR: Nico Sonack
+#+EMAIL: nsonack@herrhotzenplotz.de
+#+OPTIONS: H:2
+#+LANGUAGE: german
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [a4paper,twoside]
+#+LATEX_HEADER: \usepackage{TUBAFhausschrift}
+#+LATEX_HEADER: \usepackage{TUBAFhausschriftmathe}
+#+LATEX_HEADER: \usepackage{paralist}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{geometry}
+#+LATEX_HEADER_EXTRA: \geometry{left=3cm,top=2cm,bottom=2cm,right=2cm}
+
+* Development Environment vorbereiten
+
+  Sollte es auf Github ein vorbereitetes Repository geben, kann man
+  dieses mit einem [[file:how-to-git.org::#sec:git-clone][=git clone=]] klonen. Nach dem Klonen nicht
+  vergessen, mit [[file:console-general.org::#cd][=cd=]] in den neuen Ordner zu wechseln.
+
+  Andernfalls kann man einen neuen Ordner erstellen, diesen öffnen und
+  dann mit =git init= ein neues Repository erzeugen.
+
+* Empfohlene Vorgehensweise
+
+  Ich empfehle, zuerst die Arbeit aufzuteilen. Für jede Teilaufgabe
+  wird ein Issue auf GitHub erstellt und zugewiesen.
+
+  Für jedes Issue sollte eine Branch ausgehend von der main-Branch
+  erstellt werden. Wenn das Issue fertig bearbeitet ist, wird die
+  Branch auf GitHub gepusht und ein Pull-Request erstellt. Unter
+  diesem kann dann das Review durch den Projektpartner erfolgen.
+
+  Ebenfalls sollte ein Issue erstellt werden, um das Repository
+  vorzubereiten (C# Projekt initialisieren etc.).
+
+  Wichtig ist, dass ihr auf miteinander kommuniziert und
+  zusammenarbeitet.
+
+** Projekt vorbereiten
+
+   Im geklonten Repository kann man zunächst eine Branch erstellen,
+   die das Projekt initialisiert:
+
+   #+name: create-init-branch
+   #+begin_src sh -i :float nil
+   $ git checkout -b 'fix/init-project'
+   Switched to a new branch 'fix/init-project'
+   $
+   #+end_src sh
+
+   Dort kann mann dann u.a. das neue Projekt mit =dotnet new console=
+   erstellen.
+
+** Projekt einchecken
+
+   Es müssen alle Dateien, bis auf die Binärdateien in =.vs=, =bin=
+   und =obj= eingecheckt werden.
+
+   Am Besten ist es, wenn ihr eine Datei namens =.gitignore= im
+   Projektordner erstellt und in diese Namen von Ordnern und Dateien
+   schreibt, die ignoriert werden sollen:
+
+   #+name: create-gitignore
+   #+begin_src sh -i :float nil
+   $ echo "/bin" >> .gitignore
+   $ echo "/obj" >> .gitignore
+   $ echo "/.vs" >> .gitignore
+   $ cat .gitignore
+   /bin
+   /obj
+   /.vs
+   $
+   #+end_src sh
+
+   Anschließend kann man den =git add= und =git commit= machen, um
+   alle neuen Dateien (einschließlich =.gitignore=) einzuchecken.
+
+   Dann die Branch nach GitHub pushen und einen Pull Request
+   erzeugen. Meistens bietet GitHub einem das nach dem =git push=
+   sofort an.
+
+   Wenn ihr den Pull Request (und damit auch die Branch) gemergt habt,
+   müsst ihr eure lokale Kopie aktualisieren:
+
+   #+begin_src sh -i :float nil
+   $ git checkout main
+   $ git pull
+   #+end_src sh
+
+   Wenn ihr wollt, könnt ihr die jetzt nicht mehr benötigte Branch
+   =fix/init-project= auch löschen:
+
+   #+begin_src sh -i :float nil
+   $ git branch -d fix/init-project
+   #+end_src sh
+
+* Aufgabe bearbeiten
+
+  Seien Alice und Bob zwei Personen, die an dem Projekt arbeiten:
+
+  #+attr_latex: :width 300
+  #+attr_org: :width 100
+  [[file:assets/git-branches.png]]
+
+  Ich empfehle folgende Schritte:
+
+** Vorbereitung
+*** =git status=
+
+   Stellt sicher, dass ihr auf der =main=-Branch seid. Wenn nicht, mit
+   =git checkout main= auf die main-Branch wechseln.
+
+*** =git pull=
+
+    Führt einen git Pull durch, um sicher zu sein, dass ihr auf dem
+    aktuellen Entwicklungsstand seid.
+
+** Branch erstellen
+
+*** =git checkout -b=
+
+    Erstellt eine neue Branch für euer Issue:
+
+    #+begin_src sh -i :float nil
+   $ git checkout -b 'fix/issue-3
+   Switched to a new branch 'fix/issue-3
+   $
+    #+end_src sh
+
+** Code
+
+   Jetzt könnt ihr anfangen und Schritt für Schritt die Aufgabe
+   bearbeiten. Für jeden Schritt könnt ihr einen Commit machen (=git
+   add= und =git commit=). Ebenfalls könnt ihr die Branch nach GitHub
+   pushen und auch schon den Pull Request erstellen.
+
+   Euer Projektpartner kann derweilen selbiges mit einer anderen
+   Aufgabe/Issue machen.
+
+** PR erstellen
+
+*** =git push=
+
+    Führt einen Git Push durch, sodass die Kopie eurer Änderungen auf
+    GitHub aktuell sind.
+
+*** Pull Request öffnen
+
+    Entweder GitHub bietet euch gleich an, einen Pull Request für die
+    soeben gepushte Branch zu öffnen, oder ihr klickt auf den
+    Pull-Requests-Tab und öffnet einen von Hand.
+
+    #+attr_latex: :width 300px
+    [[file:assets/github-pr.png]]
+
+    Für =base= muss =main= gewählt werden und für =compare= eure
+    Branch, die ihr mergen wollt.
+
+    Erstellt dann den Pull Request und markiert euren Projektpartner
+    als Reviewer.
+
+    Wenn ihr fertig seid, könnt ihr den Pull Request mergen, indem ihr
+    auf den grünen Knopf drückt.
+
+    Anschließend sollten beide Projektpartner ihre lokalen Kopien
+    wieder auf den neuesten Stand bringen (siehe [[*Vorbereitung][Vorbereitung]]).
+
+    Wenn sich GitHub beim Merge beschwert, dass ein Konflikt besteht,
+    müsst ihr den Konflikt auflösen. Siehe [[*Merge-Konflikte][Merge-Konflikte]].
+
+* Erweitertes
+
+** Merge-Konflikte
+
+   Es kann manchmal geschehen, dass zwei Personen die gleiche Zeile in
+   einer Datei bearbeiten. In diesem Fall weiß git nicht, welche der
+   beiden Zeilen (oder sogar beide) die korrekte ist.
+
+   Wir müssen also den Konflikt beheben, indem wir die Branch, die wir
+   mergen wollen, auf der =main= Branch neu basieren:
+
+   #+attr_latex: :width 300px
+   #+attr_org: :width 100
+   [[file:assets/git-rebase.png]]
+
+
+   Zunächst müsst ihr sicherstellen, dass ihr auf der Branch seid, die
+   ihr mergen wollt.
+
+   /Hinweis/: Solltet ihr irgendwo in der folgenden Anleitung nicht
+   weiterkommen oder den Rebase abbrechen wollen, benutzt =git rebase
+   --abort=. Dann habt ihr eure Branch wieder im Ursprungszustand.
+
+   Es sind folgende Schritte nötig:
+
+   #+begin_src sh -i :float nil
+   $ git fetch
+   $ git rebase origin/main
+   #+end_src sh
+
+   Git sollte sich nun beschweren und Dateien nennen, in denen ein
+   Konflikt aufgetreten ist. Öffnet diese Datei und bearbeitet sie so,
+   dass sie korrekt ist (also so, wie ihr sie letztendlich sehen
+   wollt).
+
+   Wenn ihr mit der Datei fertig seid, =git add <file>=.
+
+   Ein =git status= sollte euch zeigen, welche Dateien noch Fehler
+   enthalten.
+
+   Wenn alle Konflikte behoben sind und =git status= keine weiteren
+   Dateien listet, die ein Eingreifen benötigen, =git rebase
+   --continue= ausführen.
+
+   Nun gibt es zwei Möglichkeiten:
+
+   - git beschwert sich erneut. Dann müsst ihr wieder die Dateien
+     bearbeiten, über die git meckert.
+   - git ist fertig (Successfully rebased).
+
+   Nun müsst ihr die Branch wieder auf GitHub pushen, jedoch mit
+   Überschreiben der Konflikte: =git push --force=.
+
+   Jetzt sollte der Konflikt behoben sein und ihr könnt den Merge
+   durchführen.
