@@ -108,8 +108,10 @@
 
    Dann »Add SSH Key« anklicken und der Schlüssel ist hinterlegt.
 
-
 * Klonen von Repositories
+  :PROPERTIES:
+  :CUSTOM_ID:       sec:git-clone
+  :END:
 
   Ein Repository ist ein Ordner mit Dateien und Code, der von Git
   verwaltet wird.

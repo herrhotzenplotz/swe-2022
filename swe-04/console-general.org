@@ -61,66 +61,66 @@
 
 *** Dateisystem
 
-	Der Computer organisiert Dateien in Ordnern. In Ordnern können
-	weitere Ordner sein, sodass ein hierarchisches Dateisystem
-	entsteht.
+    Der Computer organisiert Dateien in Ordnern. In Ordnern können
+    weitere Ordner sein, sodass ein hierarchisches Dateisystem
+    entsteht.
 
-	Hier einmal das Beispiel, wie Dateien in meinen Lösungen
-	organisiert sind:
+    Hier einmal das Beispiel, wie Dateien in meinen Lösungen
+    organisiert sind:
 
-	#+begin_example
-	.
-	├── csharp.mk
-	├── LICENSE
-	├── Makefile
-	├── README.md
-	├── swe-01
-	│   ├── Aufgabe2
-	│   │   ├── Aufgabe2.csproj
-	│   │   ├── Makefile
-	│   │   └── Program.cs
-	│   ├── Aufgabe3
-	│   │   ├── Aufgabe3.csproj
-	│   │   ├── Makefile
-	│   │   └── Program.cs
-	│   ├── Aufgabe4
-	│   │   ├── Aufgabe4.csproj
-	│   │   ├── Makefile
-	│   │   └── Program.cs
-	│   ├── Aufgabe4b
-	│   │   ├── Aufgabe4b.csproj
-	│   │   ├── Makefile
-	│   │   └── Program.cs
-	│   ├── Aufgabe4c
-	│   │   ├── Aufgabe4c.csproj
-	│   │   ├── Makefile
-	│   │   └── Program.cs
-	│   └── Makefile
-	├── swe-02
-	│   ├── aufgabe1
-	│   │   ├── aufgabe1.csproj
-	│   │   ├── Makefile
-	│   │   └── Program.cs
-	│   ├── aufgabe2
-	│   │   ├── aufgabe2.csproj
-	│   │   ├── Makefile
-	│   │   └── Program.cs
-	...
-	#+end_example
+    #+begin_example
+    .
+    ├── csharp.mk
+    ├── LICENSE
+    ├── Makefile
+    ├── README.md
+    ├── swe-01
+    │   ├── Aufgabe2
+    │   │   ├── Aufgabe2.csproj
+    │   │   ├── Makefile
+    │   │   └── Program.cs
+    │   ├── Aufgabe3
+    │   │   ├── Aufgabe3.csproj
+    │   │   ├── Makefile
+    │   │   └── Program.cs
+    │   ├── Aufgabe4
+    │   │   ├── Aufgabe4.csproj
+    │   │   ├── Makefile
+    │   │   └── Program.cs
+    │   ├── Aufgabe4b
+    │   │   ├── Aufgabe4b.csproj
+    │   │   ├── Makefile
+    │   │   └── Program.cs
+    │   ├── Aufgabe4c
+    │   │   ├── Aufgabe4c.csproj
+    │   │   ├── Makefile
+    │   │   └── Program.cs
+    │   └── Makefile
+    ├── swe-02
+    │   ├── aufgabe1
+    │   │   ├── aufgabe1.csproj
+    │   │   ├── Makefile
+    │   │   └── Program.cs
+    │   ├── aufgabe2
+    │   │   ├── aufgabe2.csproj
+    │   │   ├── Makefile
+    │   │   └── Program.cs
+    ...
+    #+end_example
 
-	Es gibt also den Ordner, von dem ich gerade auf das Dateisystem
-	sehe (gekennzeichnet mit dem =.=).
+    Es gibt also den Ordner, von dem ich gerade auf das Dateisystem
+    sehe (gekennzeichnet mit dem =.=).
 
-	Dort gibt es einige Dateien (=csharp.mk=, =LICENSE= etc) und
-	Ordner (=swe-01=, =swe-02=). In den Ordnern sind weitere Ordner.
+    Dort gibt es einige Dateien (=csharp.mk=, =LICENSE= etc) und
+    Ordner (=swe-01=, =swe-02=). In den Ordnern sind weitere Ordner.
 
-	Es gibt weitere Kürzel für besondere Ordner:
+    Es gibt weitere Kürzel für besondere Ordner:
 
-	| Kürzel | Bedeutung                                                                                                                                                                       |
-	|--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-	| =.=    | Ordner, in dem ich mich gerade befinde                                                                                                                                          |
-	| =..=   | Ordner eine Ebene höher (also der Ordner in der Ordner ist, in dem ich gerade bin; Beispiel: wenn ich in =swe-01/Aufgabe4/= bin, dann ist =swe-01/Aufgabe4/..= gleich =swe-01/= |
-	| =~=    | Home directory (Eigene Dateien)                                                                                                                                                 |
+    | Kürzel | Bedeutung                                                                                                                                                                       |
+    |--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | =.=    | Ordner, in dem ich mich gerade befinde                                                                                                                                          |
+    | =..=   | Ordner eine Ebene höher (also der Ordner in der Ordner ist, in dem ich gerade bin; Beispiel: wenn ich in =swe-01/Aufgabe4/= bin, dann ist =swe-01/Aufgabe4/..= gleich =swe-01/= |
+    | =~=    | Home directory (Eigene Dateien)                                                                                                                                                 |
 
 * Grundlegende Kommandos
 
@@ -152,54 +152,54 @@
 
 **** Beispiel
 
-	 #+begin_example
-	 $ ls -la swe-01
-	 total 32
-	 drwxr-xr-x  7 nico  nico    8 May 16 11:22 .
-	 drwxr-xr-x  7 nico  nico   12 Jun 13 17:11 ..
-	 drwxr-xr-x  2 nico  nico    6 Jun 22 11:52 Aufgabe2
-	 drwxr-xr-x  2 nico  nico    5 Jun 22 11:52 Aufgabe3
-	 drwxr-xr-x  2 nico  nico    5 Jun 22 11:52 Aufgabe4
-	 drwxr-xr-x  2 nico  nico    5 Jun 22 11:52 Aufgabe4b
-	 drwxr-xr-x  2 nico  nico    5 Jun 22 11:52 Aufgabe4c
-	 -rw-r--r--  1 nico  nico  244 May 16 11:22 Makefile
-	 $
-	 #+end_example
+     #+begin_example
+     $ ls -la swe-01
+     total 32
+     drwxr-xr-x  7 nico  nico    8 May 16 11:22 .
+     drwxr-xr-x  7 nico  nico   12 Jun 13 17:11 ..
+     drwxr-xr-x  2 nico  nico    6 Jun 22 11:52 Aufgabe2
+     drwxr-xr-x  2 nico  nico    5 Jun 22 11:52 Aufgabe3
+     drwxr-xr-x  2 nico  nico    5 Jun 22 11:52 Aufgabe4
+     drwxr-xr-x  2 nico  nico    5 Jun 22 11:52 Aufgabe4b
+     drwxr-xr-x  2 nico  nico    5 Jun 22 11:52 Aufgabe4c
+     -rw-r--r--  1 nico  nico  244 May 16 11:22 Makefile
+     $
+     #+end_example
 
-	 Hier ist das Kommando =ls=. Ich übergebe dem Programm =ls= zwei Schalter:
+     Hier ist das Kommando =ls=. Ich übergebe dem Programm =ls= zwei Schalter:
 
-	 - =-l= - detaillierte Liste mit Informationen über die Dateien und Ordner
-	 - =-a= - liste alle Dateien auf, auch versteckte und Ordner.
+     - =-l= - detaillierte Liste mit Informationen über die Dateien und Ordner
+     - =-a= - liste alle Dateien auf, auch versteckte und Ordner.
 
-	 Weiterhin übergebe ich =ls= einen Ordner =swe-01=, in dem es
-	 Dateien auflisten soll.
+     Weiterhin übergebe ich =ls= einen Ordner =swe-01=, in dem es
+     Dateien auflisten soll.
 
-	 =-l= und =-a= sind kurze Schalter und können zu =-la=
-	 zusammengefasst werden. Es gibt auch Langformen für Schalter:
+     =-l= und =-a= sind kurze Schalter und können zu =-la=
+     zusammengefasst werden. Es gibt auch Langformen für Schalter:
 
-	 =--this-is-a-long-switch=
+     =--this-is-a-long-switch=
 
-	 Schalter können manchmal auch Argumente annehmen:
+     Schalter können manchmal auch Argumente annehmen:
 
-	 =--verbosity all= oder =--verbosity=all=
+     =--verbosity all= oder =--verbosity=all=
 
-	 Meistens liefern Kommandos auch integrierte Hilfe mit:
+     Meistens liefern Kommandos auch integrierte Hilfe mit:
 
-	 #+begin_example
-	 $ ls --help
-	 ls: unrecognized option `--help'
-	 usage: ls [-ABCFGHILPRSTUWZabcdfghiklmnopqrstuwxy1,] [--color=when] [-D format] [file ...]
-	 $
-	 #+end_example
+     #+begin_example
+     $ ls --help
+     ls: unrecognized option `--help'
+     usage: ls [-ABCFGHILPRSTUWZabcdfghiklmnopqrstuwxy1,] [--color=when] [-D format] [file ...]
+     $
+     #+end_example
 
-	 Wer noch mehr Hilfe benötigt, kann sich die Manualseiten für die
-	 Kommandos anschauen. Unter macOS, Linux und BSD sind diese im
-	 System mittels des =man= Kommando integriert: =man <command>=
+     Wer noch mehr Hilfe benötigt, kann sich die Manualseiten für die
+     Kommandos anschauen. Unter macOS, Linux und BSD sind diese im
+     System mittels des =man= Kommando integriert: =man <command>=
 
-	 Unter Windows empfehle ich [[https://www.freebsd.org/cgi/man.cgi][die Online-Manpages von FreeBSD]]. Dort
-	 kann man das gewünschte Kommando eingeben und sich die
-	 Manualseite im Webbrowser ansehen. Unter =EXAMPLES= sind dort
-	 dann sehr oft auch Beispiele zur Benutzung aufgelistet.
+     Unter Windows empfehle ich [[https://www.freebsd.org/cgi/man.cgi][die Online-Manpages von FreeBSD]]. Dort
+     kann man das gewünschte Kommando eingeben und sich die
+     Manualseite im Webbrowser ansehen. Unter =EXAMPLES= sind dort
+     dann sehr oft auch Beispiele zur Benutzung aufgelistet.
 
 ** pwd
 
@@ -225,20 +225,23 @@
 
 *** Beispiel
 
-	Liste alle Dateien im jetzigen und danach im Ordner swe-01 auf:
+    Liste alle Dateien im jetzigen und danach im Ordner swe-01 auf:
 
-	#+begin_example
-	$ ls -a
-	.          .git       csharp.mk  Makefile   swe-01     swe-03
-	..         .gitignore LICENSE    README.md  swe-02     swe-04
-	$
-	$
-	$ ls -a swe-01
-	.         ..        Aufgabe2  Aufgabe3  Aufgabe4  Aufgabe4b Aufgabe4c Makefile
-	$
-	#+end_example
+    #+begin_example
+    $ ls -a
+    .          .git       csharp.mk  Makefile   swe-01     swe-03
+    ..         .gitignore LICENSE    README.md  swe-02     swe-04
+    $
+    $
+    $ ls -a swe-01
+    .         ..        Aufgabe2  Aufgabe3  Aufgabe4  Aufgabe4b Aufgabe4c Makefile
+    $
+    #+end_example
 
 ** cd
+   :PROPERTIES:
+   :CUSTOM_ID: cd
+   :END:
 
    Mit =cd= kann man im Dateisystem herumnavigieren.
 
@@ -274,14 +277,14 @@
 
 *** Beispiel
 
-	#+begin_example
-	$ ls -lap foo
-	ls: foo: No such file or directory
-	$ touch foo
-	$ ls -lap foo
-	-rw-r--r--  1 nico  wheel  0 Jun 22 14:21 foo
-	$
-	#+end_example
+    #+begin_example
+    $ ls -lap foo
+    ls: foo: No such file or directory
+    $ touch foo
+    $ ls -lap foo
+    -rw-r--r--  1 nico  wheel  0 Jun 22 14:21 foo
+    $
+    #+end_example
 
 ** rm
 
@@ -289,26 +292,26 @@
 
 *** Beispiel für Dateien:
 
-	#+begin_example
-	$ ls -l foo
-	-rw-r--r--  1 nico  wheel  0 Jun 22 14:21 foo
-	$
-	$ rm foo
-	$ ls -l foo
-	ls: foo: No such file or directory
-	$
-	#+end_example
+    #+begin_example
+    $ ls -l foo
+    -rw-r--r--  1 nico  wheel  0 Jun 22 14:21 foo
+    $
+    $ rm foo
+    $ ls -l foo
+    ls: foo: No such file or directory
+    $
+    #+end_example
 
 *** Für Ordner mit Dateien
 
-	Um einen Ordner mitsamt seinem Inhalt zu löschen, kann man
-	folgendes Kommando *mit VORSICHT* verwenden:
+    Um einen Ordner mitsamt seinem Inhalt zu löschen, kann man
+    folgendes Kommando *mit VORSICHT* verwenden:
 
-	=rm -rf <ordner>=
+    =rm -rf <ordner>=
 
-	- =-r= steht für rekursives Löschen
-	- =-f= steht für Löschen ohne Nachfrage, also auch
-	  schreibgeschützte Dateien.
+    - =-r= steht für rekursives Löschen
+    - =-f= steht für Löschen ohne Nachfrage, also auch
+      schreibgeschützte Dateien.
 
 ** cp
 
@@ -317,23 +320,23 @@
 *** Varianten
 **** Einzelne Dateien
 
-	=cp <Quelldatei> <Zieldatei>=
+    =cp <Quelldatei> <Zieldatei>=
 
 **** Mehrere Dateien in einen Ordner
 
-	=cp <Quelldateien...> <Zielordner>=
+    =cp <Quelldateien...> <Zielordner>=
 
 **** Einen ganzen Ordner kopieren
 
-	=cp -r <Quellordner> <Zielordner>=
+    =cp -r <Quellordner> <Zielordner>=
 
 *** Optionen
 
-	| Option | Beschreibung                                                               |
-	|--------+----------------------------------------------------------------------------|
-	| =-r=   | Rekursive Kopie eines Ordners mitsamt aller Unterverzeichnisse und Dateien |
-	| =-p=   | Übernimmt Dateimetadaten, wie Dateibesitzer und Zugriffsrechte.            |
-	| =-v=   | (Verbose) Listet Dateien und Ordner auf, wie sie kopiert werden.           |
+    | Option | Beschreibung                                                               |
+    |--------+----------------------------------------------------------------------------|
+    | =-r=   | Rekursive Kopie eines Ordners mitsamt aller Unterverzeichnisse und Dateien |
+    | =-p=   | Übernimmt Dateimetadaten, wie Dateibesitzer und Zugriffsrechte.            |
+    | =-v=   | (Verbose) Listet Dateien und Ordner auf, wie sie kopiert werden.           |
 
 ** mv
 
