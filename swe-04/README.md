@@ -1,12 +1,9 @@
-# How to git
+# README
 
-Die HTML-Version von [how-to-git.org](how-to-git.org) kann man
-[hier](https://herrhotzenplotz.de/swe/how-to-git.html) finden.
+Alle [org](https://orgmode.org/)-Dokumente sind als einfache Website verfügbar unter:
+[herrhotzenplotz.de/swe](https://herrhotzenplotz.de/swe).
 
-Ebenfalls habe ich eine PDF-Version
-[hier](https://herrhotzenplotz/swe/how-to-git.pdf) hochgeladen.
+## PDFs
 
-# How to console
-
-Die HTML-Version von [console-general.org](console-general.org) kann man
-[hier](https://herrhotzenplotz.de/swe/console-general.html) finden.
+Alle Dokumente sind ebenfalls als PDF hier zum Herunterladen
+verfügbar: [herrhotzenplotz.de/swe/pdf](https://herrhotzenplotz.de/swe/pdf).
