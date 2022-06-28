@@ -51,12 +51,11 @@
    Im geklonten Repository kann man zunächst eine Branch erstellen,
    die das Projekt initialisiert:
 
-   #+name: create-init-branch
    #+begin_src sh -i :float nil
    $ git checkout -b 'fix/init-project'
    Switched to a new branch 'fix/init-project'
    $
-   #+end_src sh
+   #+end_src
 
    Dort kann mann dann u.a. das neue Projekt mit =dotnet new console=
    erstellen.
@@ -70,7 +69,6 @@
    Projektordner erstellt und in diese Namen von Ordnern und Dateien
    schreibt, die ignoriert werden sollen:
 
-   #+name: create-gitignore
    #+begin_src sh -i :float nil
    $ echo "/bin" >> .gitignore
    $ echo "/obj" >> .gitignore
@@ -80,7 +78,7 @@
    /obj
    /.vs
    $
-   #+end_src sh
+   #+end_src
 
    Anschließend kann man den =git add= und =git commit= machen, um
    alle neuen Dateien (einschließlich =.gitignore=) einzuchecken.
@@ -95,14 +93,14 @@
    #+begin_src sh -i :float nil
    $ git checkout main
    $ git pull
-   #+end_src sh
+   #+end_src
 
    Wenn ihr wollt, könnt ihr die jetzt nicht mehr benötigte Branch
    =fix/init-project= auch löschen:
 
    #+begin_src sh -i :float nil
    $ git branch -d fix/init-project
-   #+end_src sh
+   #+end_src
 
 * Aufgabe bearbeiten
 
@@ -132,10 +130,10 @@
     Erstellt eine neue Branch für euer Issue:
 
     #+begin_src sh -i :float nil
-   $ git checkout -b 'fix/issue-3
-   Switched to a new branch 'fix/issue-3
-   $
-    #+end_src sh
+    $ git checkout -b 'fix/issue-3
+    Switched to a new branch 'fix/issue-3
+    $
+    #+end_src
 
 ** Code
 
@@ -206,7 +204,7 @@
    #+begin_src sh -i :float nil
    $ git fetch
    $ git rebase origin/main
-   #+end_src sh
+   #+end_src
 
    Git sollte sich nun beschweren und Dateien nennen, in denen ein
    Konflikt aufgetreten ist. Öffnet diese Datei und bearbeitet sie so,
