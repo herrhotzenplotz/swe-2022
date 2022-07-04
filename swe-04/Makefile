@@ -1,7 +1,4 @@
-SUBDIR	=	swe-01 \
-			swe-02 \
-			swe-03 \
-			swe-04
+SUBDIR	=	aufgabe4
 
 .PHONY: all clean ${SUBDIR} ${SUBDIR:=-clean}
 all: ${SUBDIR}
